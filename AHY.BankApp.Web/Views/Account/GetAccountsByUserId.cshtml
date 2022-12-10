@@ -1,0 +1,42 @@
+﻿@model List<AccountListModel>
+@{
+    ViewData["Title"] = "GetAccountsByUserId";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-4">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Kullanıcı Bilgileri</h5>
+                <p class="card-text">Ad : @ViewBag.fullName</p>
+                <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Kullanıcı Listesine Geri Dön</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        @if (Model != null && Model.Count>0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h5 class="card-title">Hesap Numarası : @item.AccountNumber</h5>
+                        <p class="card-text">Bakiye Bilgisi: @item.Balance</p>
+                        <a asp-action="SendMoney" asp-controller="Account" asp-route-accountId="@item.Id" class="btn btn-primary">Para Gönder</a>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-info text-center" role="alert">
+                <p class="lead">
+                    Kullanıcının hesabı bulunmamaktadır.
+                </p>
+            </div>
+        }
+
+
+    </div>
+</div>
